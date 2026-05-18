@@ -1,22 +1,22 @@
 using System;
 using Sandbox.ModAPI;
 using VRage.Utils;
+using PhantombitePlanetSpawner.Core;
 
-namespace PhantombiteStationRefill.Modules
+namespace PhantombitePlanetSpawner.Modules
 {
-    using Core;
-
-    public class StationRefill_Logger : IModule
+    public class PlanetSpawner_Logger : IModule
     {
-        public string ModuleName => "StationRefill_Logger";
-        public static StationRefill_Logger Instance { get; private set; }
+        public string ModuleName => "PlanetSpawner_Logger";
+
+        public static PlanetSpawner_Logger Instance { get; private set; }
 
         private int _level = 0;
-        private const string MOD_NAME   = "Phantombite_StationRefill";
-        private const string PREFIX     = "[PB.StationRefill]";
+        private const string MOD_NAME   = "Phantombite_PlanetSpawner";
+        private const string PREFIX     = "[PB.PlanetSpawner]";
         private const long   LOG_CHANNEL = 1995999L;
 
-        public void Init()     { Instance = this; }
+        public void Init()     { Instance = this; Log("PlanetSpawner_Logger", "Logger initialisiert"); }
         public void Update()   { }
         public void SaveData() { }
         public void Close()    { Instance = null; }
@@ -33,6 +33,7 @@ namespace PhantombiteStationRefill.Modules
                 string s = levelStr.ToLower().Trim();
                 _level = s == "trace" ? 3 : s == "debug" ? 1 : 0;
             }
+            Log("PlanetSpawner_Logger", "LOGLEVEL gesetzt: " + _level, 1);
         }
 
         public void Log(string src, string msg, int level = 0)
