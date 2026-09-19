@@ -207,8 +207,10 @@ namespace PhantombitePlanetSpawner.Modules
                 bool found = false;
                 foreach (var voxel in voxelMaps)
                 {
-                    if (voxel == null) continue;
-                    if (voxel.StorageName == storageName || voxel.StorageName.StartsWith(planet.SubtypeId))
+                    if (voxel == null || voxel.StorageName == null) continue;
+                    // Exakter Name, oder gleicher Planet-Typ mit anderem Seed/Durchmesser ("Typ-...").
+                    // Nur "StartsWith(Typ)" würde auch "TypMond" o. Ä. als vorhanden werten.
+                    if (voxel.StorageName == storageName || voxel.StorageName.StartsWith(planet.SubtypeId + "-"))
                     {
                         Log("  " + display + "[OK]    " + voxel.StorageName);
                         found = true;
